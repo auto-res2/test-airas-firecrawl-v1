@@ -1,0 +1,26 @@
+{
+  "base_queries": [
+    "FlashAttention attention mechanism transformer"
+  ],
+  "base_github_url": "https://github.com/ic-lab-duth/FLASH-D",
+  "base_method_text": {
+    "arxiv_id": "2505.14201v1",
+    "arxiv_url": "http://arxiv.org/abs/2505.14201v1",
+    "title": "FLASH-D: FlashAttention with Hidden Softmax Division",
+    "authors": [
+      "Kosmas Alexandridis",
+      "Vasileios Titopoulos",
+      "Giorgos Dimitrakopoulos"
+    ],
+    "published_date": "2025-05-20T11:01:33Z",
+    "journal": "",
+    "doi": "",
+    "summary": "The transformer's attention mechanism has revolutionized AI and machine\nlearning, with its efficient computation being crucial to its performance.\nHowever, calculating attention involves matrix operations interspersed with\nsoftmax rescaling, which inherently slows down computation and requires\nprocessing the entire input sequence. Building on online softmax computation,\nFlashAttention integrates softmax calculation with matrix arithmetic, enabling\ntiled computation independent of sequence length. While optimized for GPUs,\nFlashAttention's simplicity makes it amenable to direct hardware acceleration.\nThis work re-evaluates the core FlashAttention kernel, presenting FLASH-D a\nmathematically equivalent, yet simplified, formulation that achieves: (a)\nhiding softmax division within other non-linear function evaluations; (b)\ninherently numerically stable computation of exponentials, eliminating the need\nfor maximum value subtraction; and (c) a reduction in computational cost\nwithout introducing numerical approximations to the FlashAttention kernel.\nImportantly, the essential FlashAttention properties that facilitate efficient\ntiled implementation are fully preserved. Hardware implementation results at\n28nm demonstrate that this proposed formulation achieves a 22.8% reduction in\narea and a 20.3% reduction in power, on average, compared to state-of-the-art\nparallel hardware architectures without any performance penalty.",
+    "github_url": "https://github.com/ic-lab-duth/FLASH-D",
+    "main_contributions": "This paper introduces FLASH-D, a mathematically equivalent yet simplified formulation of FlashAttention. FLASH-D hides softmax division within other non-linear function evaluations, provides inherently numerically stable computation of exponentials, and reduces computational cost without introducing numerical approximations. It preserves the efficient tiled implementation properties of FlashAttention, leading to area and power savings in hardware implementations.",
+    "methodology": "The methodology involves a mathematical reformulation of the FlashAttention kernel, replacing softmax with an equivalent sigmoid function of attention score differences. This reformulation enables hiding the softmax division within non-linear function evaluations. The authors implemented both the optimized FlashAttention2 kernel and FLASH-D using a fully unrolled systolic architecture in 28nm ASIC technology.",
+    "experimental_setup": "The efficiency of FLASH-D was assessed by implementing the optimized FlashAttention2 kernel and FLASH-D using a fully unrolled systolic architecture in 28nm ASIC technology. The designs were synthesized into Verilog using Catapult HLS, and power consumption was estimated with the PowerPro power analysis tool. The C++ code was integrated with llama2.c to verify correctness. Inference was performed on LLMs using Microsoft's PromptBench workflow to quantify simplified output updates.",
+    "limitations": "The paper focuses on hardware implementation results at 28nm. The memory power is not included in the experimental results. The percentage of cases where output update can be simplified is small.",
+    "future_research_directions": "Future research directions include replacing the pessimistic and static range check with an adaptive criterion that includes both the range of attention score differences and the value of the previous weight to decide when output computation can be simplified. Another direction is to apply FLASH-D with other approaches that simplify attention mechanism to increase efficiency further."
+  }
+}
